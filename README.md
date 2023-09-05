@@ -3,23 +3,24 @@
 ## Future
 I need to do the following..
 
+- finish metadata for pascal chunker
 - Implement Reconstruction for Fortran
 - Implement Repo Level outputting
 - Check consistency of Metadata, standardize and improve
 
 ## Next Languages
 
+### Ada, Modula2, Modula 3, Algol60, Algol68, Object Pascal, Delphi
+Using the Pascal Chunker as the base, we should be able to quickly create new chunkers for the languages above
+
+### c
+would need some work
+
 ### zig language
 this wouldn't be too difficult to do
 
 ### cobol language
 this wouldn't be too difficult to do
-
-### c
-would need some work
-
-### Ada, Modula2, Modula 3, Algol60, Algol68, Object Pascal, Delphi
-Using the Pascal Chunker as the base, we should be able to quickly create new chunkers for the languages above
 
 # easyness to chunk languages
 Object Pascal (1/10)
