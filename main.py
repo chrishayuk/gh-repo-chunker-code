@@ -25,12 +25,15 @@ def main(args):
         # Extract the type of the file from the metadata
         file_type = chunked_data.get("metadata", {}).get("type")
         
+        
         if file_type == "bas":
             reconstructed_code = reconstruct_basic(chunked_data)
         elif file_type == "pas":
             reconstructed_code = reconstruct_pascal(chunked_data)
         elif file_type == "f90":  # Fortran reconstruction
-            reconstructed_code = reconstruct_fortran(chunked_data)  # Change this to the actual function for Fortran reconstruction
+            reconstructed_code = reconstruct_fortran(chunked_data)
+        elif file_type == "mod":  # Assuming 'mod' is the type for Modula-2 files
+            reconstructed_code = reconstruct_pascal(chunked_data, language="mod")
         else:
             logging.error(f"Reconstruction not supported for type '{file_type}'.")
             sys.exit(1)

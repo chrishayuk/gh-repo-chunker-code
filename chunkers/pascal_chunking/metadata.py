@@ -1,4 +1,3 @@
-# metadata.py
 import hashlib
 from .extraction import extract_definitions
 
@@ -27,9 +26,9 @@ def compute_file_metadata(file_path, file_content, lines, chunks, versions=[]):
         "procedures": procedures,
         "global_variables": global_vars,
         "constants": constants,
-        "types": types  
+        "types": types,
+        "block_type": "module"
     }
-
 
 def calculate_chunk_metadata(chunk_data):
     chunk_content = chunk_data["content"]
@@ -45,6 +44,18 @@ def calculate_chunk_metadata(chunk_data):
     from .extraction import extract_definitions  # Import inside the function to avoid cyclic import
     procedures, global_vars, constants, types = extract_definitions(chunk_content)
 
+    # Identify block type
+    if chunk_content[0].strip().startswith("MODULE") and chunk_content[-1].strip().endswith("."):
+        block_type = "module_declaration"
+    elif "PROCEDURE" in chunk_content[0]:
+        block_type = "procedure"
+    elif chunk_content[0].strip().startswith("BEGIN"):
+        block_type = "main_program"
+    elif chunk_content[-1].strip().endswith("."):
+        block_type = "module_end"
+    else:
+        block_type = "other"
+
     return {
         "content": chunk_content,
         "start_line": chunk_data["start_line"],
@@ -59,6 +70,7 @@ def calculate_chunk_metadata(chunk_data):
             "hash": hash_full,
             "hashTruncated": hash_truncated,
             "parent_name": chunk_data.get("parent_name", None),
-            "parent_hash": chunk_data.get("parent_hash", None)
+            "parent_hash": chunk_data.get("parent_hash", None),
+            "block_type": block_type
         }
     }

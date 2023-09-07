@@ -19,7 +19,7 @@ class ChunkManager:
             return None
         
         try:
-            return chunking_function(lines, filename, file_content, versions=file_config["versions"])
+            return chunking_function(lines, filename, file_content, versions=file_config["versions"], language=file_config["name"])
         except Exception as e:
             logging.error(f"Failed to chunk file: {e}")
             return None
